@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Contenidos API SIMIT</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>:root{color-scheme:light dark;
+--font-anthropic-sans:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+--color-bg:#f4f6fb;--color-panel:#ffffff;--color-fg:#0f172a;--color-fg-muted:#64748b;--color-border-line:#e5e9f2;--color-bad:#dc2626;
+--cds-font-size-caption:.8rem;--cds-font-size-body:.95rem;--cds-font-size-heading:1.05rem;
+--cds-gap-sm:.5rem;--cds-gap-md:1rem;--cds-gap-lg:1.5rem;--cds-pad-xs:.35rem;--cds-pad-sm:.6rem;--cds-pad-lg:1.25rem;--cds-pad-xl:2.5rem;
+--cds-radius:.5rem;--cds-chart-grid:#e2e8f0;--cds-chart-axis:#94a3b8;--cds-surface-popover:#ffffff;--cds-border:#e2e8f0;
+--cds-shadow-popover:0 6px 20px rgba(15,23,42,.12);--cds-text-secondary:#64748b;--cds-dur-slow:.3s}
+@media (prefers-color-scheme:dark){:root{--color-bg:#0b1220;--color-panel:#131c2e;--color-fg:#e2e8f0;--color-fg-muted:#94a3b8;--color-border-line:#243049;
+--cds-chart-grid:#243049;--cds-chart-axis:#475569;--cds-surface-popover:#1a2438;--cds-border:#2c3a55;--cds-shadow-popover:0 6px 20px rgba(0,0,0,.4);--cds-text-secondary:#94a3b8}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(--font-anthropic-sans);padding:clamp(1rem,4vw,3rem)}
+
+.sm-page{font-family:var(--font-anthropic-sans);display:flex;flex-direction:column;gap:var(--cds-gap-lg);max-width:76rem;margin-inline:auto;color:var(--color-fg)}
+.sm-eyebrow{display:inline-flex;align-items:center;gap:.4rem;font-size:var(--cds-font-size-caption);letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--color-fg-muted);background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:999px;padding:.2rem .7rem}
+.sm-title{font-size:clamp(1.9rem,4vw,2.6rem);font-weight:800;letter-spacing:-.02em;margin:.4rem 0 .3rem;line-height:1.1}
+.sm-sub{color:var(--color-fg-muted);font-size:var(--cds-font-size-body);max-width:42rem;margin:0}
+.sm-hero{position:relative;overflow:hidden;background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:1.25rem;padding:var(--cds-pad-xl);text-align:center}
+.sm-hero::before,.sm-hero::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.sm-hero::before{width:7rem;height:7rem;top:-2.5rem;right:3.5rem;border:.6rem solid #fde68a;opacity:.6}
+.sm-hero::after{width:7rem;height:7rem;top:-1.5rem;right:-1.5rem;border:.6rem solid #fecaca;opacity:.6}
+.sm-hero-tag{display:flex;align-items:center;gap:.75rem;color:#e11d48;font-weight:700;letter-spacing:.3em;font-size:var(--cds-font-size-caption);text-transform:uppercase}
+.sm-hero-ico{display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:.4rem;background:#facc15;color:#1f2937}
+.sm-hero-num{font-size:clamp(3rem,10vw,5.5rem);font-weight:800;color:#e11d48;letter-spacing:-.02em;line-height:1;margin:var(--cds-gap-lg) 0 var(--cds-gap-sm);font-variant-numeric:tabular-nums}
+.sm-hero-cap{letter-spacing:.3em;text-transform:uppercase;font-weight:700;font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.sm-row{display:grid;gap:var(--cds-gap-md)}
+.sm-row5{grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr))}
+.sm-row4{grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr))}
+.sm-tile{border-radius:1rem;padding:var(--cds-pad-lg);color:#fff;display:flex;flex-direction:column;gap:.6rem;min-height:9rem}
+.sm-tile-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.sm-up .sm-tile-label{text-transform:uppercase;letter-spacing:.2em;font-weight:700;font-size:.68rem;line-height:1.4}
+.sm-tile-label{font-weight:600;font-size:var(--cds-font-size-caption)}
+.sm-ico{flex:none;display:grid;place-items:center;width:2.2rem;height:2.2rem;border-radius:.55rem;background:rgba(255,255,255,.2)}
+.sm-num{font-size:2.4rem;font-weight:800;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+.sm-up .sm-num{text-align:center;padding-bottom:.7rem;border-bottom:1px dashed rgba(255,255,255,.4)}
+.sm-foot{font-size:var(--cds-font-size-caption);opacity:.9;font-weight:500}
+.sm-yellow{background:#facc15;color:#78350f}.sm-yellow .sm-up,.sm-yellow .sm-num{border-color:rgba(120,53,15,.3)}
+.sm-yellow .sm-num{border-bottom-color:rgba(120,53,15,.25)}
+.sm-purple{background:#c084fc}.sm-brown{background:#7c2d12}.sm-red{background:#dc2626}.sm-blue{background:#2563eb}
+.sm-dark{background:linear-gradient(135deg,#0f172a,#1e293b)}.sm-blue2{background:linear-gradient(135deg,#1d4ed8,#3b82f6)}
+.sm-green{background:linear-gradient(135deg,#059669,#10b981)}.sm-orange{background:linear-gradient(135deg,#f97316,#fb923c)}
+.sm-charts{display:grid;gap:var(--cds-gap-md);grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr))}
+.sm-card{background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:1.25rem;padding:var(--cds-pad-lg);display:flex;flex-direction:column;gap:var(--cds-gap-sm)}
+.sm-card h2{font-size:var(--cds-font-size-heading);font-weight:700;margin:0}
+.sm-card p{margin:0;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.sm-chart{position:relative;min-height:280px}
+.sm-tip{position:absolute;pointer-events:none;background:var(--cds-surface-popover);border:1px solid var(--cds-border);border-radius:var(--cds-radius);box-shadow:var(--cds-shadow-popover);padding:var(--cds-pad-xs) var(--cds-pad-sm);font-size:var(--cds-font-size-caption);white-space:nowrap}
+.sm-tip .d{color:var(--cds-text-secondary)}
+.sm-tip b{font-variant-numeric:tabular-nums}
+.sm-legend{display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem 1rem;font-size:var(--cds-font-size-caption);margin-top:.4rem}
+.sm-legend span{display:inline-flex;align-items:center;gap:.35rem}
+.sm-legend i{width:.7rem;height:.7rem;border-radius:2px;display:inline-block}
+.sm-fail{display:flex;align-items:center;justify-content:center;gap:.4rem;min-height:280px;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)}
+.sm-fail::before{content:"";width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)}
+[data-dash-source-state=refreshing]{opacity:.5;transition:opacity var(--cds-dur-slow)}
+</style>
+</head>
+<body>
+
+
+<div class="sm-page">
+  <header>
+    <span class="sm-eyebrow">∿ Plataforma de gestión diaria</span>
+    <h1 class="sm-title" id="titulo">Dashboard Contenidos API SIMIT</h1>
+    <p class="sm-sub">Registro diario de acciones, difusión por red y consolidado ejecutivo para medir alcance e impacto de los contenidos. Periodo: 23 al 29 de octubre de 2026.</p>
+  </header>
+
+  <section class="sm-hero" id="onda-expansiva">
+    <div class="sm-hero-tag"><span class="sm-hero-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>Onda expansiva</div>
+    <div class="sm-hero-num" data-draw="kpi" data-source="indicadores" data-field="value" data-where="metric=onda_expansiva">—</div>
+    <div class="sm-hero-cap">Total de onda expansiva registrada</div>
+  </section>
+
+  <section class="sm-row sm-row5" id="indicadores">
+    <div class="sm-tile sm-up sm-yellow">
+      <div class="sm-tile-top"><span class="sm-tile-label">Interacciones captadas</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></span></div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="value" data-where="metric=interacciones">—</div>
+      <div class="sm-foot">Me gusta y reacciones</div>
+    </div>
+    <div class="sm-tile sm-up sm-purple">
+      <div class="sm-tile-top"><span class="sm-tile-label">Compartidos</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></span></div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="value" data-where="metric=compartidos">—</div>
+      <div class="sm-foot">Compartidos, reposts e historias</div>
+    </div>
+    <div class="sm-tile sm-up sm-brown">
+      <div class="sm-tile-top"><span class="sm-tile-label">Comentarios</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg></span></div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="value" data-where="metric=comentarios">—</div>
+      <div class="sm-foot">Total comentarios</div>
+    </div>
+    <div class="sm-tile sm-up sm-red">
+      <div class="sm-tile-top"><span class="sm-tile-label">Acciones de difusión</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span></div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="value" data-where="metric=difusion">—</div>
+      <div class="sm-foot">Total de acciones de difusión registradas</div>
+    </div>
+    <div class="sm-tile sm-up sm-blue">
+      <div class="sm-tile-top"><span class="sm-tile-label">Seguidores captados</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2M16 3.1a4 4 0 0 1 0 7.8M22 21v-2a4 4 0 0 0-3-3.9"/></svg></span></div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="value" data-where="metric=seguidores">—</div>
+      <div class="sm-foot">Nuevos seguidores</div>
+    </div>
+  </section>
+
+  <section class="sm-row sm-row4" id="contenidos">
+    <div class="sm-tile sm-dark">
+      <div class="sm-tile-top"><span class="sm-tile-label">Reproducciones de video registradas</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="value" data-where="metric=reproducciones">—</div>
+      <div class="sm-foot">Total registrado manualmente</div>
+    </div>
+    <div class="sm-tile sm-blue2">
+      <div class="sm-tile-top"><span class="sm-tile-label">Contenidos realizados</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span></div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="value" data-where="metric=realizados">—</div>
+      <div class="sm-foot">Total registrado manualmente</div>
+    </div>
+    <div class="sm-tile sm-green">
+      <div class="sm-tile-top"><span class="sm-tile-label">Contenidos difundidos</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19.1 4.9a10 10 0 0 1 0 14.2M4.9 19.1a10 10 0 0 1 0-14.2"/></svg></span></div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="value" data-where="metric=difundidos">—</div>
+      <div class="sm-foot">Siembra y amplificación</div>
+    </div>
+    <div class="sm-tile sm-orange">
+      <div class="sm-tile-top"><span class="sm-tile-label">Redes activas</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span></div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="value" data-where="metric=redes">—</div>
+      <div class="sm-foot">Canales con actividad</div>
+    </div>
+  </section>
+
+  <section class="sm-charts" id="graficas">
+    <div class="sm-card" id="evolucion">
+      <h2>Evolución diaria de reproducciones de video</h2>
+      <p>Comportamiento por fecha registrada · 23 al 29 de octubre</p>
+      <div class="sm-chart" data-draw="linea" data-source="reproducciones_diarias">—</div>
+    </div>
+    <div class="sm-card" id="acciones-por-red">
+      <h2>Acciones por red</h2>
+      <p>Distribución de publicaciones y siembras</p>
+      <div class="sm-chart" data-draw="dona" data-source="acciones_por_red">—</div>
+    </div>
+  </section>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script>
+// Datos del tablero (edita estos valores para actualizar las cifras)
+window.DATOS = {
+ "indicadores": [
+  {
+   "metric": "onda_expansiva",
+   "indicador": "Total de onda expansiva registrada",
+   "value": 1324145
+  },
+  {
+   "metric": "interacciones",
+   "indicador": "Interacciones captadas",
+   "value": 2648
+  },
+  {
+   "metric": "compartidos",
+   "indicador": "Compartidos",
+   "value": 174
+  },
+  {
+   "metric": "comentarios",
+   "indicador": "Comentarios",
+   "value": 246
+  },
+  {
+   "metric": "difusion",
+   "indicador": "Acciones de difusión",
+   "value": 476
+  },
+  {
+   "metric": "seguidores",
+   "indicador": "Seguidores captados",
+   "value": 69
+  },
+  {
+   "metric": "reproducciones",
+   "indicador": "Reproducciones de video registradas",
+   "value": 86235
+  },
+  {
+   "metric": "realizados",
+   "indicador": "Contenidos realizados",
+   "value": 46
+  },
+  {
+   "metric": "difundidos",
+   "indicador": "Contenidos difundidos",
+   "value": 98
+  },
+  {
+   "metric": "redes",
+   "indicador": "Redes activas",
+   "value": 3
+  }
+ ],
+ "reproducciones_diarias": [
+  {
+   "fecha": "2026-10-23",
+   "reproducciones": 54
+  },
+  {
+   "fecha": "2026-10-24",
+   "reproducciones": 82
+  },
+  {
+   "fecha": "2026-10-25",
+   "reproducciones": 65
+  },
+  {
+   "fecha": "2026-10-26",
+   "reproducciones": 73
+  },
+  {
+   "fecha": "2026-10-27",
+   "reproducciones": 58
+  },
+  {
+   "fecha": "2026-10-28",
+   "reproducciones": 54
+  },
+  {
+   "fecha": "2026-10-29",
+   "reproducciones": 76
+  }
+ ],
+ "acciones_por_red": [
+  {
+   "red": "Meta (Facebook/Instagram)",
+   "porcentaje": 88
+  },
+  {
+   "red": "TikTok",
+   "porcentaje": 12
+  }
+ ]
+};
+// Capa mínima que reemplaza el entorno de Claude: entrega los datos y redibuja al cambiar el ancho
+window.dash = (function(){
+  const draws = {};
+  const run = (name) => document.querySelectorAll(`[data-draw="${name}"]`).forEach((el) => draws[name](el));
+  let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => Object.keys(draws).forEach(run), 150); });
+  return {
+    data: (id) => DATOS[id] ? {status: 'ok', data: DATOS[id]} : {status: 'missing', data: []},
+    draw: (name, fn) => { draws[name] = fn; run(name); }
+  };
+})();
+</script>
+<script>
+const fmt = d3.formatLocale({decimal: ',', thousands: '.', grouping: [3], currency: ['$', '']}).format(',');
+const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+const fechaCorta = (d) => `${d.getUTCDate()} ${MESES[d.getUTCMonth()]}`;
+const VERDE = '#16a34a';
+const COLORES_RED = ['#2563eb', '#fe2c55', '#0f172a'];
+
+const falla = (el) => { const f = document.createElement('div'); f.className = 'sm-fail'; f.textContent = 'Failed to load'; el.appendChild(f); };
+
+dash.draw('kpi', (el) => {
+  const d = dash.data('indicadores');
+  const key = (el.dataset.where || '').split('=')[1];
+  const row = d.status === 'ok' ? d.data.find((r) => r.metric === key) : null;
+  el.textContent = row ? fmt(Number(row.value)) : '—';
+});
+
+dash.draw('linea', (el) => {
+  const d = dash.data('reproducciones_diarias');
+  el.replaceChildren();
+  if (d.status !== 'ok') { if (d.status === 'error') falla(el); else el.textContent = '—'; return; }
+  const rows = d.data.map((r) => ({fecha: new Date(String(r.fecha).slice(0, 10) + 'T00:00:00Z'), v: Number(r.reproducciones)}));
+  const W = Math.max(280, el.clientWidth), H = 280;
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).style('display', 'block').style('overflow', 'visible');
+  const y = d3.scaleLinear([0, d3.max(rows, (r) => r.v) * 1.2], [H - 30, 18]).nice();
+  const ticks = y.ticks(5);
+  const probe = svg.append('text').attr('font-size', 12);
+  const ancho = d3.max(ticks, (t) => { probe.text(fmt(t)); return probe.node().getComputedTextLength(); });
+  probe.remove();
+  const m = {l: ancho + 14, r: 18};
+  const x = d3.scalePoint(rows.map((r) => +r.fecha), [m.l, W - m.r]).padding(0.25);
+  const grid = svg.append('g');
+  ticks.forEach((t) => {
+    grid.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(t)).attr('y2', y(t)).attr('stroke', 'var(--cds-chart-grid)').attr('stroke-dasharray', '3 3');
+    grid.append('text').attr('x', m.l - 8).attr('y', y(t)).attr('dy', '.32em').attr('text-anchor', 'end').attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text(fmt(t));
+  });
+  const step = x.step();
+  const cada = step < 46 ? 2 : 1;
+  rows.forEach((r, i) => {
+    if (i % cada) return;
+    svg.append('text').attr('x', x(+r.fecha)).attr('y', H - 8).attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text(fechaCorta(r.fecha));
+  });
+  svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', 'var(--cds-chart-axis)');
+  const gid = 'sm-grad-' + Math.random().toString(36).slice(2);
+  const grad = svg.append('defs').append('linearGradient').attr('id', gid).attr('x1', 0).attr('x2', 0).attr('y1', 0).attr('y2', 1);
+  [[0, .32], [.25, .2], [.5, .1], [.75, .04], [1, 0]].forEach(([o, a]) => grad.append('stop').attr('offset', o).attr('style', `stop-color:${VERDE};stop-opacity:${a}`));
+  const px = (r) => x(+r.fecha);
+  svg.append('path').datum(rows).attr('fill', `url(#${gid})`).attr('d', d3.area().x(px).y0(y(0)).y1((r) => y(r.v)).curve(d3.curveMonotoneX));
+  svg.append('path').datum(rows).attr('fill', 'none').attr('stroke', VERDE).attr('stroke-width', 2.5).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round').attr('d', d3.line().x(px).y((r) => y(r.v)).curve(d3.curveMonotoneX));
+  const pts = svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', px).attr('cy', (r) => y(r.v)).attr('r', 4).attr('fill', 'var(--color-panel)').attr('stroke', VERDE).attr('stroke-width', 2);
+  svg.append('g').selectAll('text').data(rows).join('text').attr('x', px).attr('y', (r) => y(r.v) - 11).attr('text-anchor', 'middle').attr('font-size', 11).attr('font-weight', 600).attr('fill', 'var(--color-fg)').text((r) => fmt(r.v));
+  const tip = d3.select(el).append('div').attr('class', 'sm-tip').style('display', 'none');
+  svg.append('rect').attr('x', m.l).attr('y', 0).attr('width', W - m.l - m.r).attr('height', H - 30).attr('fill', 'transparent')
+    .on('pointermove', (ev) => {
+      const [mx] = d3.pointer(ev);
+      const r = rows.reduce((a, b) => Math.abs(px(b) - mx) < Math.abs(px(a) - mx) ? b : a);
+      pts.attr('r', (p) => p === r ? 6 : 4).attr('fill', (p) => p === r ? VERDE : 'var(--color-panel)');
+      tip.style('display', 'block').html('');
+      tip.append('div').attr('class', 'd').text(fechaCorta(r.fecha));
+      tip.append('div').text('Reproducciones: ').append('b').text(fmt(r.v));
+      const k = el.clientWidth / W, tw = tip.node().offsetWidth;
+      tip.style('left', `${Math.min(Math.max(0, px(r) * k - tw / 2), el.clientWidth - tw)}px`).style('top', `${Math.max(0, y(r.v) * k - 58)}px`);
+    })
+    .on('pointerleave', () => { tip.style('display', 'none'); pts.attr('r', 4).attr('fill', 'var(--color-panel)'); });
+});
+
+dash.draw('dona', (el) => {
+  const d = dash.data('acciones_por_red');
+  el.replaceChildren();
+  if (d.status !== 'ok') { if (d.status === 'error') falla(el); else el.textContent = '—'; return; }
+  const rows = d.data.map((r) => ({red: String(r.red), v: Number(r.porcentaje)}));
+  const S = Math.min(240, Math.max(180, el.clientWidth - 40));
+  const R = S / 2, r0 = R * 0.58;
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `${-R - 10} ${-R - 10} ${S + 20} ${S + 20}`).style('display', 'block').style('max-height', `${S + 20}px`);
+  const arcs = d3.pie().value((r) => r.v).sort(null).padAngle(0.02)(rows);
+  const arc = d3.arc().innerRadius(r0).outerRadius(R).cornerRadius(4);
+  const tip = d3.select(el).append('div').attr('class', 'sm-tip').style('display', 'none');
+  svg.append('g').selectAll('path').data(arcs).join('path').attr('d', arc).attr('fill', (a, i) => COLORES_RED[i % COLORES_RED.length])
+    .on('pointermove', (ev, a) => {
+      const [mx, my] = d3.pointer(ev, el);
+      tip.style('display', 'block').html('');
+      tip.append('div').attr('class', 'd').text(a.data.red);
+      tip.append('b').text(`${fmt(a.data.v)}%`);
+      const tw = tip.node().offsetWidth;
+      tip.style('left', `${Math.min(Math.max(0, mx - tw / 2), el.clientWidth - tw)}px`).style('top', `${Math.max(0, my - 52)}px`);
+    })
+    .on('pointerleave', () => tip.style('display', 'none'));
+  svg.append('g').selectAll('text').data(arcs).join('text').attr('transform', (a) => `translate(${arc.centroid(a)})`).attr('text-anchor', 'middle').attr('dy', '.35em')
+    .attr('font-size', 13).attr('font-weight', 700).attr('fill', '#fff').style('pointer-events', 'none').text((a) => (a.endAngle - a.startAngle) > 0.35 ? `${fmt(a.data.v)}%` : '');
+  const top = rows.reduce((a, b) => b.v > a.v ? b : a);
+  svg.append('text').attr('text-anchor', 'middle').attr('dy', '-.1em').attr('font-size', 30).attr('font-weight', 800).attr('fill', 'var(--color-fg)').text(`${fmt(top.v)}%`);
+  svg.append('text').attr('text-anchor', 'middle').attr('dy', '1.5em').attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text(top.red.split(' ')[0]);
+  const ley = d3.select(el).append('div').attr('class', 'sm-legend');
+  rows.forEach((r, i) => { const s = ley.append('span'); s.append('i').style('background', COLORES_RED[i % COLORES_RED.length]); s.append('span').text(`${r.red} · ${fmt(r.v)}%`); });
+});
+</script>
+</body>
+</html>

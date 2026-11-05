@@ -1,0 +1,12 @@
+[
+ {"metric":"onda_expansiva","indicador":"Total de onda expansiva registrada","value":1324145},
+ {"metric":"interacciones","indicador":"Interacciones captadas","value":2648},
+ {"metric":"compartidos","indicador":"Compartidos","value":174},
+ {"metric":"comentarios","indicador":"Comentarios","value":246},
+ {"metric":"difusion","indicador":"Acciones de difusión","value":476},
+ {"metric":"seguidores","indicador":"Seguidores captados","value":69},
+ {"metric":"reproducciones","indicador":"Reproducciones de video registradas","value":86235},
+ {"metric":"realizados","indicador":"Contenidos realizados","value":46},
+ {"metric":"difundidos","indicador":"Contenidos difundidos","value":98},
+ {"metric":"redes","indicador":"Redes activas","value":3}
+]
