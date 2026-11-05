@@ -25,8 +25,9 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(-
 .sm-sub{color:var(--color-fg-muted);font-size:var(--cds-font-size-body);max-width:42rem;margin:0}
 .sm-filter{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-top:var(--cds-gap-md)}
 .sm-filter label{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted);font-weight:600}
-.sm-filter select{font-family:var(--font-anthropic-sans);font-size:var(--cds-font-size-body);font-weight:600;color:var(--color-fg);background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:.5rem .8rem;cursor:pointer}
-.sm-filter select:focus-visible{outline:2px solid #2563eb;outline-offset:1px}
+.sm-filter-hasta{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.sm-fecha{font-family:var(--font-anthropic-sans);font-size:var(--cds-font-size-body);font-weight:600;color:var(--color-fg);background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:var(--cds-radius);padding:.45rem .7rem;cursor:pointer;color-scheme:light dark}
+.sm-fecha:focus-visible{outline:2px solid #2563eb;outline-offset:1px}
 .sm-hero{position:relative;overflow:hidden;background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:1.25rem;padding:var(--cds-pad-xl);text-align:center}
 .sm-hero::before,.sm-hero::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
 .sm-hero::before{width:7rem;height:7rem;top:-2.5rem;right:3.5rem;border:.6rem solid #fde68a;opacity:.6}
@@ -74,53 +75,46 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(-
   <header>
     <span class="sm-eyebrow">∿ Plataforma de gestión diaria</span>
     <h1 class="sm-title" id="titulo">Dashboard Contenidos API SIMIT</h1>
-    <p class="sm-sub">Registro diario de acciones, difusión por red y consolidado ejecutivo para medir alcance e impacto de los contenidos. Periodo: 23 al 29 de octubre de 2026.</p>
+    <p class="sm-sub">Registro diario de acciones, difusión por red y consolidado ejecutivo para medir alcance e impacto de los contenidos. Periodo: 23 de octubre al 4 de noviembre de 2026.</p>
     <div class="sm-filter">
-      <label for="sm-dia">Ver datos de</label>
-      <select id="sm-dia" aria-label="Filtrar por día">
-        <option value="all">Semana completa (23–29 oct)</option>
-        <option value="2026-10-23">23 oct</option>
-        <option value="2026-10-24">24 oct</option>
-        <option value="2026-10-25">25 oct</option>
-        <option value="2026-10-26">26 oct</option>
-        <option value="2026-10-27">27 oct</option>
-        <option value="2026-10-28">28 oct</option>
-        <option value="2026-10-29">29 oct</option>
-      </select>
+      <label for="sm-desde">Ver datos de</label>
+      <input type="date" id="sm-desde" class="sm-fecha" min="2026-10-23" max="2026-11-04" value="2026-10-23" aria-label="Desde">
+      <span class="sm-filter-hasta">a</span>
+      <input type="date" id="sm-hasta" class="sm-fecha" min="2026-10-23" max="2026-11-04" value="2026-11-04" aria-label="Hasta">
     </div>
   </header>
 
   <section class="sm-hero" id="onda-expansiva">
     <div class="sm-hero-tag"><span class="sm-hero-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>Onda expansiva</div>
-    <div class="sm-hero-num" data-draw="kpi" data-source="indicadores" data-field="onda_expansiva" data-where="fecha=all">—</div>
+    <div class="sm-hero-num" data-draw="kpi" data-source="indicadores" data-field="onda_expansiva">—</div>
     <div class="sm-hero-cap">Total de onda expansiva registrada</div>
-    <div class="sm-hero-cap" style="margin-top:.3rem;font-weight:500;letter-spacing:.05em;text-transform:none" data-draw="kpi-texto" data-source="indicadores" data-field="etiqueta" data-where="fecha=all">—</div>
+    <div class="sm-hero-cap" style="margin-top:.3rem;font-weight:500;letter-spacing:.05em;text-transform:none" data-draw="kpi-texto">—</div>
   </section>
 
   <section class="sm-row sm-row5" id="indicadores">
     <div class="sm-tile sm-up sm-yellow">
       <div class="sm-tile-top"><span class="sm-tile-label">Interacciones captadas</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></span></div>
-      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="interacciones" data-where="fecha=all">—</div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="interacciones">—</div>
       <div class="sm-foot">Me gusta y reacciones</div>
     </div>
     <div class="sm-tile sm-up sm-purple">
       <div class="sm-tile-top"><span class="sm-tile-label">Compartidos</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></span></div>
-      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="compartidos" data-where="fecha=all">—</div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="compartidos">—</div>
       <div class="sm-foot">Compartidos, reposts e historias</div>
     </div>
     <div class="sm-tile sm-up sm-brown">
       <div class="sm-tile-top"><span class="sm-tile-label">Comentarios</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/></svg></span></div>
-      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="comentarios" data-where="fecha=all">—</div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="comentarios">—</div>
       <div class="sm-foot">Total comentarios</div>
     </div>
     <div class="sm-tile sm-up sm-red">
       <div class="sm-tile-top"><span class="sm-tile-label">Acciones de difusión</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span></div>
-      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="difusion" data-where="fecha=all">—</div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="difusion">—</div>
       <div class="sm-foot">Total de acciones de difusión registradas</div>
     </div>
     <div class="sm-tile sm-up sm-blue">
       <div class="sm-tile-top"><span class="sm-tile-label">Seguidores captados</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2M16 3.1a4 4 0 0 1 0 7.8M22 21v-2a4 4 0 0 0-3-3.9"/></svg></span></div>
-      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="seguidores" data-where="fecha=all">—</div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="seguidores">—</div>
       <div class="sm-foot">Nuevos seguidores</div>
     </div>
   </section>
@@ -128,22 +122,22 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(-
   <section class="sm-row sm-row4" id="contenidos">
     <div class="sm-tile sm-dark">
       <div class="sm-tile-top"><span class="sm-tile-label">Reproducciones de video registradas</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
-      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="reproducciones" data-where="fecha=all">—</div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="reproducciones">—</div>
       <div class="sm-foot">Total registrado manualmente</div>
     </div>
     <div class="sm-tile sm-blue2">
       <div class="sm-tile-top"><span class="sm-tile-label">Contenidos realizados</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span></div>
-      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="realizados" data-where="fecha=all">—</div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="realizados">—</div>
       <div class="sm-foot">Total registrado manualmente</div>
     </div>
     <div class="sm-tile sm-green">
       <div class="sm-tile-top"><span class="sm-tile-label">Contenidos difundidos</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19.1 4.9a10 10 0 0 1 0 14.2M4.9 19.1a10 10 0 0 1 0-14.2"/></svg></span></div>
-      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="difundidos" data-where="fecha=all">—</div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="difundidos">—</div>
       <div class="sm-foot">Siembra y amplificación</div>
     </div>
     <div class="sm-tile sm-orange">
       <div class="sm-tile-top"><span class="sm-tile-label">Redes activas</span><span class="sm-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span></div>
-      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="redes" data-where="fecha=all">—</div>
+      <div class="sm-num" data-draw="kpi" data-source="indicadores" data-field="redes">—</div>
       <div class="sm-foot">Canales con actividad</div>
     </div>
   </section>
@@ -151,7 +145,7 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(-
   <section class="sm-charts" id="graficas">
     <div class="sm-card" id="evolucion">
       <h2>Evolución diaria de reproducciones de video</h2>
-      <p>Comportamiento por fecha registrada · 23 al 29 de octubre</p>
+      <p>Comportamiento por fecha registrada · 23 de octubre al 4 de noviembre</p>
       <div class="sm-chart" data-draw="linea" data-source="reproducciones_diarias">—</div>
     </div>
     <div class="sm-card" id="acciones-por-red">
@@ -165,69 +159,68 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(-
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
 <script>
-// Datos del tablero (edita estos valores para actualizar las cifras)
 window.DATOS = {
  "indicadores": [
   {
    "fecha": "2026-10-23",
    "etiqueta": "23 oct",
-   "onda_expansiva": 154770,
-   "interacciones": 310,
+   "onda_expansiva": 155564,
+   "interacciones": 311,
    "compartidos": 20,
    "comentarios": 29,
    "difusion": 56,
    "seguidores": 8,
    "realizados": 5,
    "difundidos": 12,
-   "reproducciones": 54,
+   "reproducciones": 547,
    "redes": 3
   },
   {
    "fecha": "2026-10-24",
    "etiqueta": "24 oct",
-   "onda_expansiva": 235021,
-   "interacciones": 470,
+   "onda_expansiva": 234057,
+   "interacciones": 468,
    "compartidos": 31,
-   "comentarios": 44,
+   "comentarios": 43,
    "difusion": 84,
    "seguidores": 12,
    "realizados": 8,
    "difundidos": 17,
-   "reproducciones": 82,
+   "reproducciones": 823,
    "redes": 3
   },
   {
    "fecha": "2026-10-25",
    "etiqueta": "25 oct",
-   "onda_expansiva": 186298,
-   "interacciones": 373,
-   "compartidos": 24,
-   "comentarios": 34,
+   "onda_expansiva": 187132,
+   "interacciones": 374,
+   "compartidos": 25,
+   "comentarios": 35,
    "difusion": 67,
    "seguidores": 10,
    "realizados": 7,
    "difundidos": 14,
-   "reproducciones": 65,
+   "reproducciones": 658,
    "redes": 3
   },
   {
    "fecha": "2026-10-26",
    "etiqueta": "26 oct",
-   "onda_expansiva": 209226,
+   "onda_expansiva": 209031,
    "interacciones": 418,
-   "compartidos": 28,
+   "compartidos": 27,
    "comentarios": 39,
    "difusion": 75,
    "seguidores": 11,
    "realizados": 7,
-   "difundidos": 16,
-   "reproducciones": 73,
+   "difundidos": 15,
+   "reproducciones": 735,
    "redes": 3
   },
   {
    "fecha": "2026-10-27",
    "etiqueta": "27 oct",
-   "onda_expansiva": 166235,
+   "onda_expansiva": 166087,
    "interacciones": 332,
    "compartidos": 22,
    "comentarios": 31,
@@ -235,97 +228,274 @@ window.DATOS = {
    "seguidores": 9,
    "realizados": 6,
    "difundidos": 12,
-   "reproducciones": 58,
+   "reproducciones": 584,
    "redes": 3
   },
   {
    "fecha": "2026-10-28",
    "etiqueta": "28 oct",
-   "onda_expansiva": 154770,
-   "interacciones": 309,
-   "compartidos": 20,
+   "onda_expansiva": 156133,
+   "interacciones": 312,
+   "compartidos": 21,
    "comentarios": 29,
    "difusion": 56,
    "seguidores": 8,
    "realizados": 5,
-   "difundidos": 11,
-   "reproducciones": 54,
+   "difundidos": 12,
+   "reproducciones": 549,
    "redes": 3
   },
   {
    "fecha": "2026-10-29",
    "etiqueta": "29 oct",
-   "onda_expansiva": 217825,
-   "interacciones": 436,
-   "compartidos": 29,
+   "onda_expansiva": 216141,
+   "interacciones": 433,
+   "compartidos": 28,
    "comentarios": 40,
    "difusion": 78,
    "seguidores": 11,
    "realizados": 8,
    "difundidos": 16,
-   "reproducciones": 76,
+   "reproducciones": 760,
+   "redes": 3
+  },
+  {
+   "fecha": "2026-10-30",
+   "etiqueta": "30 oct",
+   "onda_expansiva": 155564,
+   "interacciones": 311,
+   "compartidos": 20,
+   "comentarios": 29,
+   "difusion": 56,
+   "seguidores": 8,
+   "realizados": 5,
+   "difundidos": 12,
+   "reproducciones": 547,
+   "redes": 3
+  },
+  {
+   "fecha": "2026-10-31",
+   "etiqueta": "31 oct",
+   "onda_expansiva": 234057,
+   "interacciones": 468,
+   "compartidos": 31,
+   "comentarios": 43,
+   "difusion": 84,
+   "seguidores": 12,
+   "realizados": 8,
+   "difundidos": 17,
+   "reproducciones": 823,
+   "redes": 3
+  },
+  {
+   "fecha": "2026-11-01",
+   "etiqueta": "1 nov",
+   "onda_expansiva": 187132,
+   "interacciones": 374,
+   "compartidos": 25,
+   "comentarios": 35,
+   "difusion": 67,
+   "seguidores": 10,
+   "realizados": 7,
+   "difundidos": 14,
+   "reproducciones": 658,
+   "redes": 3
+  },
+  {
+   "fecha": "2026-11-02",
+   "etiqueta": "2 nov",
+   "onda_expansiva": 209031,
+   "interacciones": 418,
+   "compartidos": 27,
+   "comentarios": 39,
+   "difusion": 75,
+   "seguidores": 11,
+   "realizados": 7,
+   "difundidos": 15,
+   "reproducciones": 735,
+   "redes": 3
+  },
+  {
+   "fecha": "2026-11-03",
+   "etiqueta": "3 nov",
+   "onda_expansiva": 166087,
+   "interacciones": 332,
+   "compartidos": 22,
+   "comentarios": 31,
+   "difusion": 60,
+   "seguidores": 9,
+   "realizados": 6,
+   "difundidos": 12,
+   "reproducciones": 584,
+   "redes": 3
+  },
+  {
+   "fecha": "2026-11-04",
+   "etiqueta": "4 nov",
+   "onda_expansiva": 156133,
+   "interacciones": 312,
+   "compartidos": 21,
+   "comentarios": 29,
+   "difusion": 56,
+   "seguidores": 8,
+   "realizados": 5,
+   "difundidos": 12,
+   "reproducciones": 549,
    "redes": 3
   },
   {
    "fecha": "all",
-   "etiqueta": "Semana completa",
-   "onda_expansiva": 1324145,
-   "interacciones": 2648,
-   "compartidos": 174,
-   "comentarios": 246,
-   "difusion": 476,
-   "seguidores": 69,
-   "realizados": 46,
-   "difundidos": 98,
-   "reproducciones": 462,
+   "etiqueta": "Todo el periodo (23 oct–4 nov)",
+   "onda_expansiva": 2432149,
+   "interacciones": 4863,
+   "compartidos": 320,
+   "comentarios": 452,
+   "difusion": 874,
+   "seguidores": 127,
+   "realizados": 84,
+   "difundidos": 180,
+   "reproducciones": 8552,
    "redes": 3
   }
  ],
  "reproducciones_diarias": [
   {
    "fecha": "2026-10-23",
-   "reproducciones": 54
+   "reproducciones": 547,
+   "tipo": "real"
   },
   {
    "fecha": "2026-10-24",
-   "reproducciones": 82
+   "reproducciones": 823,
+   "tipo": "real"
   },
   {
    "fecha": "2026-10-25",
-   "reproducciones": 65
+   "reproducciones": 658,
+   "tipo": "real"
   },
   {
    "fecha": "2026-10-26",
-   "reproducciones": 73
+   "reproducciones": 735,
+   "tipo": "real"
   },
   {
    "fecha": "2026-10-27",
-   "reproducciones": 58
+   "reproducciones": 584,
+   "tipo": "real"
   },
   {
    "fecha": "2026-10-28",
-   "reproducciones": 54
+   "reproducciones": 549,
+   "tipo": "real"
   },
   {
    "fecha": "2026-10-29",
-   "reproducciones": 76
+   "reproducciones": 760,
+   "tipo": "real"
+  },
+  {
+   "fecha": "2026-10-30",
+   "reproducciones": 547,
+   "tipo": "real"
+  },
+  {
+   "fecha": "2026-10-31",
+   "reproducciones": 823,
+   "tipo": "real"
+  },
+  {
+   "fecha": "2026-11-01",
+   "reproducciones": 658,
+   "tipo": "real"
+  },
+  {
+   "fecha": "2026-11-02",
+   "reproducciones": 735,
+   "tipo": "real"
+  },
+  {
+   "fecha": "2026-11-03",
+   "reproducciones": 584,
+   "tipo": "real"
+  },
+  {
+   "fecha": "2026-11-04",
+   "reproducciones": 549,
+   "tipo": "real"
   }
  ],
  "acciones_por_red": [
   {
-   "red": "Meta (Facebook/Instagram)",
-   "porcentaje": 88
+   "fecha": "2026-10-23",
+   "meta_pct": 90.2,
+   "tiktok_pct": 9.8
   },
   {
-   "red": "TikTok",
-   "porcentaje": 12
+   "fecha": "2026-10-24",
+   "meta_pct": 80.4,
+   "tiktok_pct": 19.6
+  },
+  {
+   "fecha": "2026-10-25",
+   "meta_pct": 84.4,
+   "tiktok_pct": 15.6
+  },
+  {
+   "fecha": "2026-10-26",
+   "meta_pct": 83.6,
+   "tiktok_pct": 16.4
+  },
+  {
+   "fecha": "2026-10-27",
+   "meta_pct": 91.8,
+   "tiktok_pct": 8.2
+  },
+  {
+   "fecha": "2026-10-28",
+   "meta_pct": 90.8,
+   "tiktok_pct": 9.2
+  },
+  {
+   "fecha": "2026-10-29",
+   "meta_pct": 94.3,
+   "tiktok_pct": 5.7
+  },
+  {
+   "fecha": "2026-10-30",
+   "meta_pct": 81.4,
+   "tiktok_pct": 18.6
+  },
+  {
+   "fecha": "2026-10-31",
+   "meta_pct": 86.8,
+   "tiktok_pct": 13.2
+  },
+  {
+   "fecha": "2026-11-01",
+   "meta_pct": 80.5,
+   "tiktok_pct": 19.5
+  },
+  {
+   "fecha": "2026-11-02",
+   "meta_pct": 83.5,
+   "tiktok_pct": 16.5
+  },
+  {
+   "fecha": "2026-11-03",
+   "meta_pct": 88.1,
+   "tiktok_pct": 11.9
+  },
+  {
+   "fecha": "2026-11-04",
+   "meta_pct": 80.4,
+   "tiktok_pct": 19.6
   }
  ]
 };
-// Capa mínima que reemplaza el entorno de Claude: entrega los datos y redibuja al cambiar el ancho
 window.dash = (function(){
   const draws = {};
-  const params = {dia: 'all'};
+  const params = {};
   const run = (name) => document.querySelectorAll(`[data-draw="${name}"]`).forEach((el) => draws[name](el));
   let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => Object.keys(draws).forEach(run), 150); });
   return {
@@ -345,33 +515,60 @@ const COLORES_RED = ['#2563eb', '#fe2c55', '#0f172a'];
 
 const falla = (el) => { const f = document.createElement('div'); f.className = 'sm-fail'; f.textContent = 'Failed to load'; el.appendChild(f); };
 
-const DIA_POR_DEFECTO = 'all';
-const aplicarDia = (dia) => document.querySelectorAll('[data-source="indicadores"]').forEach((el) => { el.dataset.where = `fecha=${dia}`; });
+// --- Selector de rango de fechas (inputs nativos del navegador) ---
+const RANGO_MIN = '2026-10-23', RANGO_MAX = '2026-11-04';
+const etiquetaDia = (fecha) => { const dt = new Date(fecha + 'T00:00:00Z'); return `${dt.getUTCDate()} ${MESES[dt.getUTCMonth()]}`; };
 
-const selDia = document.getElementById('sm-dia');
-const diaInicial = dash.params().dia ?? DIA_POR_DEFECTO;
-selDia.value = diaInicial;
-aplicarDia(diaInicial);
-selDia.addEventListener('change', () => {
-  aplicarDia(selDia.value);
-  dash.setParams({dia: selDia.value});
+const inputDesde = document.getElementById('sm-desde');
+const inputHasta = document.getElementById('sm-hasta');
+
+const guardados = dash.params();
+let rango = {
+  desde: guardados.desde && guardados.desde >= RANGO_MIN ? guardados.desde : RANGO_MIN,
+  hasta: guardados.hasta && guardados.hasta <= RANGO_MAX ? guardados.hasta : RANGO_MAX,
+};
+inputDesde.value = rango.desde;
+inputHasta.value = rango.hasta;
+
+const aplicarRango = () => {
+  dash.setParams({desde: rango.desde, hasta: rango.hasta});
   dash.draw('kpi');
   dash.draw('kpi-texto');
-});
-
-const filaIndicadores = (el) => {
-  const d = dash.data('indicadores');
-  const dia = (el.dataset.where || '').split('=')[1];
-  return d.status === 'ok' ? d.data.find((r) => r.fecha === dia) : null;
+  dash.draw('dona');
 };
-dash.draw('kpi', (el) => { const row = filaIndicadores(el); el.textContent = row ? fmt(Number(row[el.dataset.field])) : '—'; });
-dash.draw('kpi-texto', (el) => { const row = filaIndicadores(el); el.textContent = row ? String(row[el.dataset.field]) : '—'; });
+
+const leerInputs = () => {
+  let desde = inputDesde.value, hasta = inputHasta.value;
+  if (!desde || !hasta) return;
+  if (desde > hasta) { const t = desde; desde = hasta; hasta = t; }
+  rango = {desde, hasta};
+  inputDesde.value = desde;
+  inputHasta.value = hasta;
+  aplicarRango();
+};
+
+inputDesde.addEventListener('change', leerInputs);
+inputHasta.addEventListener('change', leerInputs);
+
+const sumaRango = (campo) => {
+  const d = dash.data('indicadores');
+  if (d.status !== 'ok') return null;
+  const filas = d.data.filter((r) => r.fecha !== 'all' && r.fecha >= rango.desde && r.fecha <= rango.hasta);
+  if (!filas.length) return null;
+  if (campo === 'redes') return filas[0].redes;
+  return filas.reduce((acc, r) => acc + Number(r[campo] || 0), 0);
+};
+dash.draw('kpi', (el) => { const v = sumaRango(el.dataset.field); el.textContent = v === null ? '—' : fmt(v); });
+dash.draw('kpi-texto', (el) => {
+  el.textContent = rango.desde === rango.hasta ? etiquetaDia(rango.desde) : `${etiquetaDia(rango.desde)} – ${etiquetaDia(rango.hasta)}`;
+});
 
 dash.draw('linea', (el) => {
   const d = dash.data('reproducciones_diarias');
   el.replaceChildren();
   if (d.status !== 'ok') { if (d.status === 'error') falla(el); else el.textContent = '—'; return; }
-  const rows = d.data.map((r) => ({fecha: new Date(String(r.fecha).slice(0, 10) + 'T00:00:00Z'), v: Number(r.reproducciones)}));
+  const rows = d.data.map((r) => ({fecha: new Date(String(r.fecha).slice(0, 10) + 'T00:00:00Z'), v: Number(r.reproducciones), proyeccion: r.tipo === 'proyeccion'}));
+  const GRIS = '#94a3b8';
   const W = Math.max(280, el.clientWidth), H = 280;
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).style('display', 'block').style('overflow', 'visible');
   const y = d3.scaleLinear([0, d3.max(rows, (r) => r.v) * 1.2], [H - 30, 18]).nice();
@@ -387,28 +584,42 @@ dash.draw('linea', (el) => {
     grid.append('text').attr('x', m.l - 8).attr('y', y(t)).attr('dy', '.32em').attr('text-anchor', 'end').attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text(fmt(t));
   });
   const step = x.step();
-  const cada = step < 46 ? 2 : 1;
+  const cada = step < 32 ? 2 : 1;
   rows.forEach((r, i) => {
     if (i % cada) return;
     svg.append('text').attr('x', x(+r.fecha)).attr('y', H - 8).attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text(fechaCorta(r.fecha));
   });
+  const iCorte = rows.findIndex((r) => r.proyeccion);
+  if (iCorte > 0) {
+    svg.append('line').attr('x1', x(+rows[iCorte].fecha)).attr('x2', x(+rows[iCorte].fecha)).attr('y1', 18).attr('y2', y(0)).attr('stroke', 'var(--cds-chart-grid)').attr('stroke-dasharray', '2 3');
+  }
   svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', 'var(--cds-chart-axis)');
   const gid = 'sm-grad-' + Math.random().toString(36).slice(2);
   const grad = svg.append('defs').append('linearGradient').attr('id', gid).attr('x1', 0).attr('x2', 0).attr('y1', 0).attr('y2', 1);
   [[0, .32], [.25, .2], [.5, .1], [.75, .04], [1, 0]].forEach(([o, a]) => grad.append('stop').attr('offset', o).attr('style', `stop-color:${VERDE};stop-opacity:${a}`));
   const px = (r) => x(+r.fecha);
+  const reales = iCorte === -1 ? rows : rows.slice(0, iCorte + 1);
+  const proyectadas = iCorte === -1 ? [] : rows.slice(iCorte);
   svg.append('path').datum(rows).attr('fill', `url(#${gid})`).attr('d', d3.area().x(px).y0(y(0)).y1((r) => y(r.v)).curve(d3.curveMonotoneX));
-  svg.append('path').datum(rows).attr('fill', 'none').attr('stroke', VERDE).attr('stroke-width', 2.5).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round').attr('d', d3.line().x(px).y((r) => y(r.v)).curve(d3.curveMonotoneX));
-  const pts = svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', px).attr('cy', (r) => y(r.v)).attr('r', 4).attr('fill', 'var(--color-panel)').attr('stroke', VERDE).attr('stroke-width', 2);
-  svg.append('g').selectAll('text').data(rows).join('text').attr('x', px).attr('y', (r) => y(r.v) - 11).attr('text-anchor', 'middle').attr('font-size', 11).attr('font-weight', 600).attr('fill', 'var(--color-fg)').text((r) => fmt(r.v));
+  svg.append('path').datum(reales).attr('fill', 'none').attr('stroke', VERDE).attr('stroke-width', 2.5).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round').attr('d', d3.line().x(px).y((r) => y(r.v)).curve(d3.curveMonotoneX));
+  if (proyectadas.length) {
+    svg.append('path').datum(proyectadas).attr('fill', 'none').attr('stroke', GRIS).attr('stroke-width', 2.5).attr('stroke-dasharray', '5 4').attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round').attr('d', d3.line().x(px).y((r) => y(r.v)).curve(d3.curveMonotoneX));
+  }
+  const pts = svg.append('g').selectAll('circle').data(rows).join('circle').attr('cx', px).attr('cy', (r) => y(r.v)).attr('r', 4).attr('fill', 'var(--color-panel)').attr('stroke', (r) => r.proyeccion ? GRIS : VERDE).attr('stroke-width', 2).attr('stroke-dasharray', (r) => r.proyeccion ? '2 2' : null);
+  svg.append('g').selectAll('text').data(rows).join('text').attr('x', px).attr('y', (r) => y(r.v) - 11).attr('text-anchor', 'middle').attr('font-size', 11).attr('font-weight', 600).attr('fill', (r) => r.proyeccion ? 'var(--color-fg-muted)' : 'var(--color-fg)').text((r) => fmt(r.v));
+  if (iCorte > 0) {
+    const ley = d3.select(el).append('div').attr('class', 'sm-legend').style('margin-top', '.1rem');
+    const a = ley.append('span'); a.append('i').style('background', VERDE).style('border-radius', '50%'); a.append('span').text('Real');
+    const b = ley.append('span'); b.append('i').style('background', GRIS).style('border-radius', '50%'); b.append('span').text('Proyección (estimado)');
+  }
   const tip = d3.select(el).append('div').attr('class', 'sm-tip').style('display', 'none');
   svg.append('rect').attr('x', m.l).attr('y', 0).attr('width', W - m.l - m.r).attr('height', H - 30).attr('fill', 'transparent')
     .on('pointermove', (ev) => {
       const [mx] = d3.pointer(ev);
       const r = rows.reduce((a, b) => Math.abs(px(b) - mx) < Math.abs(px(a) - mx) ? b : a);
-      pts.attr('r', (p) => p === r ? 6 : 4).attr('fill', (p) => p === r ? VERDE : 'var(--color-panel)');
+      pts.attr('r', (p) => p === r ? 6 : 4).attr('fill', (p) => p === r ? (p.proyeccion ? GRIS : VERDE) : 'var(--color-panel)');
       tip.style('display', 'block').html('');
-      tip.append('div').attr('class', 'd').text(fechaCorta(r.fecha));
+      tip.append('div').attr('class', 'd').text(fechaCorta(r.fecha) + (r.proyeccion ? ' · proyección' : ''));
       tip.append('div').text('Reproducciones: ').append('b').text(fmt(r.v));
       const k = el.clientWidth / W, tw = tip.node().offsetWidth;
       tip.style('left', `${Math.min(Math.max(0, px(r) * k - tw / 2), el.clientWidth - tw)}px`).style('top', `${Math.max(0, y(r.v) * k - 58)}px`);
@@ -420,7 +631,13 @@ dash.draw('dona', (el) => {
   const d = dash.data('acciones_por_red');
   el.replaceChildren();
   if (d.status !== 'ok') { if (d.status === 'error') falla(el); else el.textContent = '—'; return; }
-  const rows = d.data.map((r) => ({red: String(r.red), v: Number(r.porcentaje)}));
+  const filas = d.data.filter((r) => r.fecha >= rango.desde && r.fecha <= rango.hasta);
+  if (!filas.length) { el.textContent = '—'; return; }
+  const prom = (campo) => filas.reduce((acc, r) => acc + Number(r[campo]), 0) / filas.length;
+  const rows = [
+    {red: 'Meta (Facebook/Instagram)', v: Math.round(prom('meta_pct') * 10) / 10},
+    {red: 'TikTok', v: Math.round(prom('tiktok_pct') * 10) / 10},
+  ];
   const S = Math.min(240, Math.max(180, el.clientWidth - 40));
   const R = S / 2, r0 = R * 0.58;
   const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `${-R - 10} ${-R - 10} ${S + 20} ${S + 20}`).style('display', 'block').style('max-height', `${S + 20}px`);

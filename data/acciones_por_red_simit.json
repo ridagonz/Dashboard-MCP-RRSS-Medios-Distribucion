@@ -1,4 +1,67 @@
 [
- {"red":"Meta (Facebook/Instagram)","porcentaje":88},
- {"red":"TikTok","porcentaje":12}
+ {
+  "fecha": "2026-10-23",
+  "meta_pct": 90.2,
+  "tiktok_pct": 9.8
+ },
+ {
+  "fecha": "2026-10-24",
+  "meta_pct": 80.4,
+  "tiktok_pct": 19.6
+ },
+ {
+  "fecha": "2026-10-25",
+  "meta_pct": 84.4,
+  "tiktok_pct": 15.6
+ },
+ {
+  "fecha": "2026-10-26",
+  "meta_pct": 83.6,
+  "tiktok_pct": 16.4
+ },
+ {
+  "fecha": "2026-10-27",
+  "meta_pct": 91.8,
+  "tiktok_pct": 8.2
+ },
+ {
+  "fecha": "2026-10-28",
+  "meta_pct": 90.8,
+  "tiktok_pct": 9.2
+ },
+ {
+  "fecha": "2026-10-29",
+  "meta_pct": 94.3,
+  "tiktok_pct": 5.7
+ },
+ {
+  "fecha": "2026-10-30",
+  "meta_pct": 81.4,
+  "tiktok_pct": 18.6
+ },
+ {
+  "fecha": "2026-10-31",
+  "meta_pct": 86.8,
+  "tiktok_pct": 13.2
+ },
+ {
+  "fecha": "2026-11-01",
+  "meta_pct": 80.5,
+  "tiktok_pct": 19.5
+ },
+ {
+  "fecha": "2026-11-02",
+  "meta_pct": 83.5,
+  "tiktok_pct": 16.5
+ },
+ {
+  "fecha": "2026-11-03",
+  "meta_pct": 88.1,
+  "tiktok_pct": 11.9
+ },
+ {
+  "fecha": "2026-11-04",
+  "meta_pct": 80.4,
+  "tiktok_pct": 19.6
+ }
 ]
