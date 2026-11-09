@@ -75,12 +75,12 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(-
   <header>
     <span class="sm-eyebrow">∿ Plataforma de gestión diaria</span>
     <h1 class="sm-title" id="titulo">Dashboard Contenidos API SIMIT</h1>
-    <p class="sm-sub">Registro diario de acciones, difusión por red y consolidado ejecutivo para medir alcance e impacto de los contenidos. Periodo: 23 de octubre al 7 de noviembre de 2026.</p>
+    <p class="sm-sub">Registro diario de acciones, difusión por red y consolidado ejecutivo para medir alcance e impacto de los contenidos. Periodo: 23 de octubre al 8 de noviembre de 2026.</p>
     <div class="sm-filter">
       <label for="sm-desde">Ver datos de</label>
-      <input type="date" id="sm-desde" class="sm-fecha" min="2026-10-23" max="2026-11-07" value="2026-10-23" aria-label="Desde">
+      <input type="date" id="sm-desde" class="sm-fecha" min="2026-10-23" max="2026-11-08" value="2026-10-23" aria-label="Desde">
       <span class="sm-filter-hasta">a</span>
-      <input type="date" id="sm-hasta" class="sm-fecha" min="2026-10-23" max="2026-11-07" value="2026-11-07" aria-label="Hasta">
+      <input type="date" id="sm-hasta" class="sm-fecha" min="2026-10-23" max="2026-11-08" value="2026-11-08" aria-label="Hasta">
     </div>
   </header>
 
@@ -145,7 +145,7 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(-
   <section class="sm-charts" id="graficas">
     <div class="sm-card" id="evolucion">
       <h2>Evolución diaria de reproducciones de video</h2>
-      <p>Comportamiento por fecha registrada · 23 de octubre al 7 de noviembre</p>
+      <p>Comportamiento por fecha registrada · 23 de octubre al 8 de noviembre</p>
       <div class="sm-chart" data-draw="linea" data-source="reproducciones_diarias">—</div>
     </div>
     <div class="sm-card" id="acciones-por-red">
@@ -386,17 +386,31 @@ window.DATOS = {
    "redes": 3
   },
   {
+   "fecha": "2026-11-08",
+   "etiqueta": "8 nov",
+   "onda_expansiva": 187132,
+   "interacciones": 374,
+   "compartidos": 25,
+   "comentarios": 35,
+   "difusion": 67,
+   "seguidores": 10,
+   "realizados": 7,
+   "difundidos": 14,
+   "reproducciones": 658,
+   "redes": 3
+  },
+  {
    "fecha": "all",
-   "etiqueta": "Todo el periodo (23 oct–7 nov)",
-   "onda_expansiva": 3037911,
-   "interacciones": 6075,
-   "compartidos": 399,
-   "comentarios": 564,
-   "difusion": 1092,
-   "seguidores": 158,
-   "realizados": 105,
-   "difundidos": 225,
-   "reproducciones": 10682,
+   "etiqueta": "Todo el periodo (23 oct–8 nov)",
+   "onda_expansiva": 3225043,
+   "interacciones": 6449,
+   "compartidos": 424,
+   "comentarios": 599,
+   "difusion": 1159,
+   "seguidores": 168,
+   "realizados": 112,
+   "difundidos": 239,
+   "reproducciones": 11340,
    "redes": 3
   }
  ],
@@ -480,6 +494,11 @@ window.DATOS = {
    "fecha": "2026-11-07",
    "reproducciones": 823,
    "tipo": "real"
+  },
+  {
+   "fecha": "2026-11-08",
+   "reproducciones": 658,
+   "tipo": "real"
   }
  ],
  "acciones_por_red": [
@@ -562,6 +581,11 @@ window.DATOS = {
    "fecha": "2026-11-07",
    "meta_pct": 87.8,
    "tiktok_pct": 12.2
+  },
+  {
+   "fecha": "2026-11-08",
+   "meta_pct": 87.8,
+   "tiktok_pct": 12.2
   }
  ]
 };
@@ -588,7 +612,7 @@ const COLORES_RED = ['#2563eb', '#fe2c55', '#0f172a'];
 const falla = (el) => { const f = document.createElement('div'); f.className = 'sm-fail'; f.textContent = 'Failed to load'; el.appendChild(f); };
 
 // --- Selector de rango de fechas (inputs nativos del navegador) ---
-const RANGO_MIN = '2026-10-23', RANGO_MAX = '2026-11-07';
+const RANGO_MIN = '2026-10-23', RANGO_MAX = '2026-11-08';
 const etiquetaDia = (fecha) => { const dt = new Date(fecha + 'T00:00:00Z'); return `${dt.getUTCDate()} ${MESES[dt.getUTCMonth()]}`; };
 
 const inputDesde = document.getElementById('sm-desde');

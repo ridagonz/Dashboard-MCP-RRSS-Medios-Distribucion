@@ -224,17 +224,31 @@
   "redes": 3
  },
  {
+  "fecha": "2026-11-08",
+  "etiqueta": "8 nov",
+  "onda_expansiva": 187132,
+  "interacciones": 374,
+  "compartidos": 25,
+  "comentarios": 35,
+  "difusion": 67,
+  "seguidores": 10,
+  "realizados": 7,
+  "difundidos": 14,
+  "reproducciones": 658,
+  "redes": 3
+ },
+ {
   "fecha": "all",
-  "etiqueta": "Todo el periodo (23 oct–7 nov)",
-  "onda_expansiva": 3037911,
-  "interacciones": 6075,
-  "compartidos": 399,
-  "comentarios": 564,
-  "difusion": 1092,
-  "seguidores": 158,
-  "realizados": 105,
-  "difundidos": 225,
-  "reproducciones": 10682,
+  "etiqueta": "Todo el periodo (23 oct–8 nov)",
+  "onda_expansiva": 3225043,
+  "interacciones": 6449,
+  "compartidos": 424,
+  "comentarios": 599,
+  "difusion": 1159,
+  "seguidores": 168,
+  "realizados": 112,
+  "difundidos": 239,
+  "reproducciones": 11340,
   "redes": 3
  }
 ]
